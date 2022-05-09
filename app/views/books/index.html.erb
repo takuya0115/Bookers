@@ -5,22 +5,29 @@
   </head>
 
   <body>
-  <p id="notice"></p>
   <h1>Books</h1>
+  <% @books.each do |book| %>
   <table>
     <thead>
       <tr>
         <th>Title</th>
         <th>Body</th>
-        <th calspan='3'></th>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.body %></td>
+        <td><a href="/books/<%= book.id %>">Show</a></td>
+        <td><%= link_to "Edit", edit_book_path(book) %></td>
+        <td><%= link_to "Destroy", destroy_book_path(book), method: :delete, "data-confirm" => "Are you sure？" %></td>
 
+      </tr>
     </tbody>
   </table>
+  <% end %>
   <h2>New book</h2>
-<%= form_with model: Book.new do |f| %>
+  <%= form_with model: Book.new do |f| %>
   <h4>Title</h4>
   <%= f.text_field :title %>
 
@@ -28,7 +35,6 @@
   <%= f.text_area :body %>
 
   <%= f.submit 'Create Book' %>
-<% end %>
-
+  <% end %>
   </body>
 </html>
